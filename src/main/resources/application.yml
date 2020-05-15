@@ -1,0 +1,14 @@
+
+spring:
+  mqtt:
+    username:
+    password:
+    url: tcp://172.17.11.219:1883
+    client:
+      id: mqttId
+    default:
+      topic: test
+    completionTimeout: 3000
+
+  main:
+    allow-bean-definition-overriding: true
