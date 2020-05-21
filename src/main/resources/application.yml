@@ -5,7 +5,7 @@ spring:
     password:
     url: tcp://172.17.11.219:1883
     client:
-      id: mqttId
+      id: pc_zhufusheng
     default:
       topic: test
     completionTimeout: 3000

@@ -74,10 +74,10 @@ public class MqttReceiveConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(clientId+"_inbound", mqttClientFactory(),
-                        "KkLight/ToSvr/862846044153149","IMEI/862846044153149/FD");
+                        "IMEI/864626043637690/FD");
         adapter.setCompletionTimeout(completionTimeout);
         adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(1);
+        adapter.setQos(0);
         adapter.setOutputChannel(mqttInputChannel());
         return adapter;
     }
@@ -91,14 +91,14 @@ public class MqttReceiveConfig {
             public void handleMessage(Message<?> message) throws MessagingException {
                 String topic = message.getHeaders().get("mqtt_receivedTopic").toString();
                 String type = topic.substring(topic.lastIndexOf("/")+1, topic.length());
-                if("KkLight/ToSvr/862846044153149".equalsIgnoreCase(topic)){
-                    System.out.println("hello,KkLight/ToSvr/862846044153149,"+message.getPayload().toString());
-                }else if("IMEI/862846044153149/FD".equalsIgnoreCase(topic)){
-                    System.out.println("test,IMEI/862846044153149/FD,"+message.getPayload().toString());
+                if("IMEI/864626043637690/FD".equalsIgnoreCase(topic)){
+//                    String str = new String((byte[]) message.getPayload());
+                    System.out.println("test,IMEI/864626043637690/FD,"+ message.getPayload().toString());
                 } else {
                     System.out.println(message.getPayload().toString());
                 }
             }
         };
     }
+
 }
