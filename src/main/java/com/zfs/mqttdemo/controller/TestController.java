@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @ClassName TestController.java
@@ -22,7 +23,12 @@ public class TestController {
     private MqttGateway mqttGateway;
 
     @RequestMapping("/sendMqtt")
-    public String sendMqtt(String sendData, String topic){
+    public String sendMqtt(List<Integer> data){
+        byte a = 0;
+        byte b = 0;
+        if (data.get(0) == 0) {
+
+        }
 //        byte[] sd = {0, 5, 'f', 'f', 'f', 'f', '0', '4', '0', '0'};
         byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x00, 0x00};
 //        byte[] x = {0x1e, (byte)0xff, (byte)0xff, 0x03, 0x00};

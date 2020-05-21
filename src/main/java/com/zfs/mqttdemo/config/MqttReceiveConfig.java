@@ -74,10 +74,10 @@ public class MqttReceiveConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(clientId+"_inbound", mqttClientFactory(),
-                        "IMEI/864626043637690/FD");
+                        "IMEI/864626043637690/FD", "IMEI/868334033327861/FD");
         adapter.setCompletionTimeout(completionTimeout);
         adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(0);
+        adapter.setQos(1);
         adapter.setOutputChannel(mqttInputChannel());
         return adapter;
     }
@@ -94,6 +94,8 @@ public class MqttReceiveConfig {
                 if("IMEI/864626043637690/FD".equalsIgnoreCase(topic)){
 //                    String str = new String((byte[]) message.getPayload());
                     System.out.println("test,IMEI/864626043637690/FD,"+ message.getPayload().toString());
+                }else if("IMEI/868334033327861/FD".equalsIgnoreCase(topic)){
+                    System.out.println("test,IMEI/868334033327861/FD,"+message.getHeaders().toString() + ":" + message.getPayload().toString());
                 } else {
                     System.out.println(message.getPayload().toString());
                 }
