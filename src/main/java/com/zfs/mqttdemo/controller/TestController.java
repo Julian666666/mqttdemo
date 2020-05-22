@@ -29,12 +29,12 @@ public class TestController {
 //        if (data.get(0) == 0) {
 //
 //        }
-        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x03, 0x00};
-//        byte[] x = {(byte)0xAE, 0x07, 0x00, 0x01, 0x01, 0x64, 0x00};
+//        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x01, 0x00};
+        byte[] x = {(byte)0xAE, 0x04, 0x00, 0x01, 0x01, 0x0A, 0x00};
 //        byte[] x = {0x6F, 0x07, 0x00};
 //        byte[] x = {0x1e, (byte)0xff, (byte)0xff, 0x03, 0x00};
         System.out.println(Arrays.toString(x));
-        mqttGateway.sendToMqtt(x,"IMEI/864626043637690/TD");
+        mqttGateway.sendToMqtt(x,"IMEI/868334033327861/TD");
         return "OK";
     }
 
