@@ -23,14 +23,15 @@ public class TestController {
     private MqttGateway mqttGateway;
 
     @RequestMapping("/sendMqtt")
-    public String sendMqtt(List<Integer> data){
-        byte a = 0;
-        byte b = 0;
-        if (data.get(0) == 0) {
-
-        }
-//        byte[] sd = {0, 5, 'f', 'f', 'f', 'f', '0', '4', '0', '0'};
-        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x00, 0x00};
+    public String sendMqtt(){
+//        byte a = 0;
+//        byte b = 0;
+//        if (data.get(0) == 0) {
+//
+//        }
+        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x03, 0x00};
+//        byte[] x = {(byte)0xAE, 0x07, 0x00, 0x01, 0x01, 0x64, 0x00};
+//        byte[] x = {0x6F, 0x07, 0x00};
 //        byte[] x = {0x1e, (byte)0xff, (byte)0xff, 0x03, 0x00};
         System.out.println(Arrays.toString(x));
         mqttGateway.sendToMqtt(x,"IMEI/864626043637690/TD");

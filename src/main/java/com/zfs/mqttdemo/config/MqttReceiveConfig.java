@@ -17,6 +17,9 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @ClassName MqttReceiveConfig.java
  * @Description mqtt订阅类
@@ -74,7 +77,7 @@ public class MqttReceiveConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(clientId+"_inbound", mqttClientFactory(),
-                        "IMEI/864626043637690/FD", "IMEI/868334033327861/FD");
+                        /*"IMEI/864626043637690/FD", */"IMEI/868334033327861/FD");
         adapter.setCompletionTimeout(completionTimeout);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
@@ -95,7 +98,39 @@ public class MqttReceiveConfig {
 //                    String str = new String((byte[]) message.getPayload());
                     System.out.println("test,IMEI/864626043637690/FD,"+ message.getPayload().toString());
                 }else if("IMEI/868334033327861/FD".equalsIgnoreCase(topic)){
-                    System.out.println("test,IMEI/868334033327861/FD,"+message.getHeaders().toString() + ":" + message.getPayload().toString());
+                    byte[] bytes = message.getPayload().toString().getBytes();
+//                    System.out.println("test,IMEI/868334033327861/FD,"+message.getHeaders().toString() + ":" + message.getPayload().toString());
+                    if (bytes[0] == 11) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("cmdType", bytes[0]);
+                        map.put("len", bytes[2] + bytes[1]);
+                        map.put("CSQ", bytes[3]);
+                        map.put("sceneId", bytes[5] + bytes[4]);
+                        map.put("TimePlanID", bytes[6]);
+                        map.put("CommType", bytes[7]);
+                        map.put("outputNum", bytes[8]);
+                        map.put("temperature", bytes[9]/2.5);
+                        map.put("D0", bytes[10]);
+                        map.put("dim", bytes[11]);
+                        map.put("energy1", bytes[15] + bytes[14] + bytes[13] + bytes[12]);
+                        short v = (short) bytes[16];
+                        System.out.println(bytes[16]);
+                        System.out.println(bytes[17]);
+                        System.out.println(v);
+                        map.put("voltage", (bytes[17] + bytes[16])/100.00);
+                        map.put("current", (bytes[19] + bytes[18])/100.00);
+                        map.put("power", (bytes[21] + bytes[20])/100.00);
+                        map.put("pf", (bytes[23] + bytes[22])/100.00);
+                        map.put("lampOnTime", bytes[27] + bytes[26] + bytes[25] + bytes[24]);
+                        System.out.println(map);
+                    }
+                    System.out.println("-----------------");
+//                    for (int i = 0, len = bytes.length; i < len; i++) {
+//                        switch (i) {
+//                            case 0:
+//
+//                        }
+//                    }
                 } else {
                     System.out.println(message.getPayload().toString());
                 }
