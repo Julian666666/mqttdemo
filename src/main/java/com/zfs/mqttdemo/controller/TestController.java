@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,18 +24,21 @@ public class TestController {
     private MqttGateway mqttGateway;
 
     @RequestMapping("/sendMqtt")
-    public String sendMqtt(){
+    public String sendMqtt(/*String id, String content*/){
 //        byte a = 0;
 //        byte b = 0;
-//        if (data.get(0) == 0) {
-//
+//        List<Byte> byteList = new ArrayList<>();
+//        if ("05".equals(id)) {
+//            Byte[] bytes = {0x05, (byte)0xff, (byte)0xff, 0x01, 0x00};
+//            byteList.addAll(bytes);
 //        }
-//        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x01, 0x00};
-        byte[] x = {(byte)0xAE, 0x04, 0x00, 0x01, 0x01, 0x0A, 0x00};
+        byte[] x = {0x05, (byte)0xff, (byte)0xff, 0x03, 0x00};
+//        byte[] x = {0x07};
+//        byte[] x = {(byte)0xAE, 0x04, 0x00, 0x01, 0x01, 0x0A, 0x00};
 //        byte[] x = {0x6F, 0x07, 0x00};
 //        byte[] x = {0x1e, (byte)0xff, (byte)0xff, 0x03, 0x00};
-        System.out.println(Arrays.toString(x));
-        mqttGateway.sendToMqtt(x,"IMEI/868334033327861/TD");
+//        byte[] x = {0x0d, (byte)0x10, (byte)0x04, (byte)0xd6, 0x01, 0x00, (byte)0x10, (byte)0x9c, (byte)0x00, (byte)0x00, (byte)0x08};
+        mqttGateway.sendToMqtt(x,"IMEI/864626043637690/TD");
         return "OK";
     }
 
